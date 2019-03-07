@@ -5,10 +5,10 @@
   "description": "A NodeJS interview",
   "scripts": {
     "build": "npx babel src --out-dir lib",
-    "kernel": "node lib/main/TicTacToe/index.js",
-    "debug-kernel": "nodemon -e js,ts --watch src --exec \"npm run tests && npm run build && npm run kernel\"",
-    "api": "node lib/main/index.js",
-    "debug-api": "nodemon -e js,ts --watch src --exec \"npm run tests && npm run build && npm run api\"",
+    "kernel": "node lib/main/kernel/index.js",
+    "debug-kernel": "nodemon -e js,ts --watch src --exec \"npm run build && npm run tests && npm run kernel\"",
+    "api": "node lib/main/api/index.js",
+    "debug-api": "nodemon -e js,ts --watch src --exec \"clear && npm run build && npm run tests && npm run api\"",
     "babel-version": "babel --version",
     "preinstall": "sudo npm i -g nodemon npx",
     "tests": "mocha -c -S -R spec 'src/tests' --compilers js:babel-register --check-leaks || true"
@@ -20,9 +20,13 @@
     "babel-preset-env": "^1.7.0",
     "babili": "0.0.6",
     "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "mocha": "^3.0.2",
     "mochawesome": "^1.5.2",
-    "npx": "^10.2.0"
+    "monk": "^6.0.6",
+    "npx": "^10.2.0",
+    "should": "^13.2.3",
+    "supertest": "^3.4.2"
   },
   "babel": {
     "presets": [
@@ -34,6 +38,7 @@
   "dependencies": {
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
+    "koa-route": "^3.2.0",
     "mongodb": "^3.1.13",
     "ramda": "^0.26.1"
   }

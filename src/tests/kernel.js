@@ -1,10 +1,10 @@
 'use strict'
 
-import {rules}  from '../main/TicTacToe/rules'
+import {rules}  from '../main/kernel/rules'
 import TicTacToe, {
   initGame,
   validateMove,
-}  from '../main/TicTacToe'
+}  from '../main/kernel'
 
 
 
@@ -168,17 +168,3 @@ describe('win Conditions', () => {
 
 
 })
-
-
-
-/*
-
-  it('sum should be a function', function () {
-    expect(sum).to.be.a('function')
-  })
-
-  it('result should return a number', function () {
-    expect(sum(a, b)).to.be.a('number')
-  })
-
-*/
