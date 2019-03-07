@@ -47,7 +47,23 @@ describe('validate Rules', () => {
     const gameState = {moves, move}
     const isMoveValid = ready(rule)(gameState)
     expect(isMoveValid).to.be.eql(false)
+  }),
+  it("input out of range", () => {
+
+    const rule = {
+      test: rules.inputOutOfRange
+    }
+    const invalidMove = {
+      coord: {
+        x: -1, // should be more or equal to 0
+        y: -5  // should be less or equal to 3
+      }    
+    }
+    const gameState = {moves, move: invalidMove}
+    const isMoveValid = ready(rule)(gameState)
+    expect(isMoveValid).to.be.eql(false)
   })
+
 
 })
 
