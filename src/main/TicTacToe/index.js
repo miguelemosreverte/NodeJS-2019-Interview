@@ -11,12 +11,13 @@ const makeMove = (game, move) => ({
   moves: [...game.moves, move]
 })
 
-const validateMove = (rules, move) => R.values(rules).map(rule => rule(move)).every(e=>e)
+const validateMove = (rules, gameState) =>
+  R.values(rules).map(rule => rule(gameState)).every(e=>e)
 
 
 
-const TicTacToe = rules => game => player1 => player2 => move => {
-  const valid = validateMove(rules, move)
+const TicTacToe = game => player1 => player2 => rules => gameState => {
+  const valid = validateMove(rules, gameState)
   return valid
 }
 

@@ -9,7 +9,7 @@
     "debug": "nodemon -e js,ts --watch src --exec \"npm run tests && npm run build && npm run start\"",
     "babel-version": "babel --version",
     "preinstall": "sudo npm i -g nodemon npx",
-    "tests": "mocha -c -S -R spec 'tests' --compilers js:babel-register --check-leaks"
+    "tests": "mocha -c -S -R spec 'src/tests' --compilers js:babel-register --check-leaks"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
