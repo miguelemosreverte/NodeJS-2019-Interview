@@ -5,14 +5,17 @@
   "description": "A NodeJS interview",
   "scripts": {
     "build": "npx babel src --out-dir lib",
-    "start": "node lib/index.js",
-    "debug": "nodemon -e js,ts --watch src --exec \"npm run tests && npm run build && npm run start\"",
+    "kernel": "node lib/main/TicTacToe/index.js",
+    "debug-kernel": "nodemon -e js,ts --watch src --exec \"npm run tests && npm run build && npm run kernel\"",
+    "api": "node lib/main/index.js",
+    "debug-api": "nodemon -e js,ts --watch src --exec \"npm run tests && npm run build && npm run api\"",
     "babel-version": "babel --version",
     "preinstall": "sudo npm i -g nodemon npx",
-    "tests": "mocha -c -S -R spec 'src/tests' --compilers js:babel-register --check-leaks"
+    "tests": "mocha -c -S -R spec 'src/tests' --compilers js:babel-register --check-leaks || true"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-babili": "0.0.4",
     "babel-preset-env": "^1.7.0",
     "babili": "0.0.6",
@@ -27,5 +30,11 @@
       "stage-0",
       "babili"
     ]
+  },
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "mongodb": "^3.1.13",
+    "ramda": "^0.26.1"
   }
 }
