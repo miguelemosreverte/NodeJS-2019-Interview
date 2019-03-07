@@ -4,13 +4,24 @@
   "version": "1.0.0",
   "description": "A NodeJS interview",
   "scripts": {
-    "build": "babel index.js -d dist",
-    "start": "npm run build && nodemon dist/index.js",
+    "build": "npx babel src --out-dir lib",
+    "start": "node lib/index.js",
+    "debug": "nodemon -e js,ts --watch src --exec \"npm run build && npm run start\"",
     "babel-version": "babel --version",
-    "preinstall": "sudo npm i -g babel-cli nodemon"
+    "preinstall": "sudo npm i -g babel-cli nodemon npx"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-babili": "0.0.4",
+    "babili": "0.0.6",
+    "npx": "^10.2.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015-node6",
+      "stage-0",
+      "babili"
+    ]
   }
 }
