@@ -57,9 +57,98 @@ describe('validate Rules', () => {
       coord: {
         x: -1, // should be more or equal to 0
         y: -5  // should be less or equal to 3
-      }    
+      }
     }
     const gameState = {moves, move: invalidMove}
+    const isMoveValid = ready(rule)(gameState)
+    expect(isMoveValid).to.be.eql(false)
+  }),
+  it("input out of range", () => {
+
+    const rule = {
+      test: rules.inputOutOfRange
+    }
+    const invalidMove = {
+      coord: {
+        x: -1, // should be more or equal to 0
+        y: -5  // should be less or equal to 3
+      }
+    }
+    const gameState = {moves, move: invalidMove}
+    const isMoveValid = ready(rule)(gameState)
+    expect(isMoveValid).to.be.eql(false)
+  })
+})
+
+
+describe('win Conditions', () => {
+  it("Ywin", () => {
+
+    const rule = {
+      test: rules.win
+    }
+    const moves = [
+     {player:player1, move:{coord:{x:0, y:0}}},
+     {player:player1, move:{coord:{x:1, y:0}}}
+    ]
+    const finalMove = {player:player1, move:{coord:{x:2, y:0}}}
+    const gameState = {moves, move: finalMove}
+    const isMoveValid = ready(rule)(gameState)
+    expect(isMoveValid).to.be.eql(true)
+  }),
+  it("Xwin", () => {
+
+    const rule = {
+      test: rules.win
+    }
+    const moves = [
+     {player:player1, move:{coord:{x:0, y:0}}},
+     {player:player1, move:{coord:{x:0, y:1}}}
+    ]
+    const finalMove = {player:player1, move:{coord:{x:0, y:2}}}
+    const gameState = {moves, move: finalMove}
+    const isMoveValid = ready(rule)(gameState)
+    expect(isMoveValid).to.be.eql(true)
+  }),
+  it("diagonal Win", () => {
+
+    const rule = {
+      test: rules.win
+    }
+    const moves = [
+     {player:player1, move:{coord:{x:0, y:0}}},
+     {player:player1, move:{coord:{x:1, y:1}}}
+    ]
+    const finalMove = {player:player1, move:{coord:{x:2, y:2}}}
+    const gameState = {moves, move: finalMove}
+    const isMoveValid = ready(rule)(gameState)
+    expect(isMoveValid).to.be.eql(true)
+  }),
+  it("contra diagonal Win", () => {
+
+    const rule = {
+      test: rules.win
+    }
+    const moves = [
+     {player:player1, move:{coord:{x:1, y:1}}},
+     {player:player1, move:{coord:{x:0, y:0}}}
+    ]
+    const finalMove = {player:player1, move:{coord:{x:-1, y:-1}}}
+    const gameState = {moves, move: finalMove}
+    const isMoveValid = ready(rule)(gameState)
+    expect(isMoveValid).to.be.eql(true)
+  }),
+  it("no Win :( ", () => {
+
+    const rule = {
+      test: rules.win
+    }
+    const moves = [
+     {player:player1, move:{coord:{x:-1, y:1}}},
+     {player:player1, move:{coord:{x:0, y:0}}}
+    ]
+    const finalMove = {player:player1, move:{coord:{x:1, y:-1}}}
+    const gameState = {moves, move: finalMove}
     const isMoveValid = ready(rule)(gameState)
     expect(isMoveValid).to.be.eql(false)
   })
