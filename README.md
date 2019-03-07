@@ -10,12 +10,26 @@ npm install
 npm run debug-kernel
 
 --------------
-![splash_screen](./images/splash_screen.jpeg)
-![battle plan](./images/battle_plan.jpeg)
-![1](./images/move.jpeg)
-![2](./images/game_state_and_moves.jpeg)
-![3](./images/definition.jpeg)
-![4](./images/where.jpeg)
-![5](./images/game.jpeg)
-![6](./images/and.jpeg)
-![7](./images/player.jpeg)
+
+<img src="./images/splash_screen.jpeg"  width="100%">
+<img src="./images/battle_plan.jpeg"  width="100%">
+
+<table>
+    <tr>
+    <td><img src="./images/move.jpeg"></td>
+    <td><img src="./images/game_state_and_moves.jpeg"></td>
+    </tr>
+</table>
+
+<img src="./images/definition.jpeg"  width="100%"></tr>
+
+<table>
+  <tr>
+    <td><img src="./images/where.jpeg"></td>
+    <td><img src="./images/game.jpeg"></td>
+  </tr>
+  <tr>
+    <td><img src="./images/and.jpeg"></td>
+    <td><img src="./images/player.jpeg"></td>
+  </tr>
+</table>
