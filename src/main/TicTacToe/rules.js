@@ -34,7 +34,11 @@ const rules = {
     //console.log("BACK TO THE DRAWING BOARD ", result)
     return result
   },
-  cannotPlaceOnTopOfPlaced: a => a
+  cannotPlaceOnTopOfPlaced: ({moves, move}) =>
+      !R.find(current_position_of_move =>
+        R.equals(current_position_of_move.coord, move.coord)
+      )
+      (moves)
 }
 
 

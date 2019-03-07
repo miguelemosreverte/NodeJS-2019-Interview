@@ -77,6 +77,19 @@ describe('validate Rules', () => {
     const gameState = {moves, move: invalidMove}
     const isMoveValid = ready(rule)(gameState)
     expect(isMoveValid).to.be.eql(false)
+  }),
+  it("cannot place on top of placed ", () => {
+
+    const rule = {
+      test: rules.cannotPlaceOnTopOfPlaced
+    }
+    const move = {player:player1, move:{coord:{x:1, y:1}}}
+    const moves = [
+     move
+    ]
+    const gameState = {moves, move}
+    const isMoveValid = ready(rule)(gameState)
+    expect(isMoveValid).to.be.eql(false)
   })
 })
 
