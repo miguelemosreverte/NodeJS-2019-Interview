@@ -6,15 +6,19 @@
   "scripts": {
     "build": "npx babel src --out-dir lib",
     "start": "node lib/index.js",
-    "debug": "nodemon -e js,ts --watch src --exec \"npm run build && npm run start\"",
+    "debug": "nodemon -e js,ts --watch src --exec \"npm run tests && npm run build && npm run start\"",
     "babel-version": "babel --version",
-    "preinstall": "sudo npm i -g babel-cli nodemon npx"
+    "preinstall": "sudo npm i -g nodemon npx",
+    "tests": "mocha -c -S -R spec 'tests' --compilers js:babel-register --check-leaks"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "babel-preset-babili": "0.0.4",
+    "babel-preset-env": "^1.7.0",
     "babili": "0.0.6",
+    "chai": "^4.2.0",
+    "mocha": "^3.0.2",
+    "mochawesome": "^1.5.2",
     "npx": "^10.2.0"
   },
   "babel": {
