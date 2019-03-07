@@ -6,9 +6,9 @@
   "scripts": {
     "build": "npx babel src --out-dir lib",
     "kernel": "node lib/main/TicTacToe/index.js",
-    "debug-kernel": "nodemon -e js,ts --watch src --exec \"npm run tests && npm run build && npm run kernel\"",
+    "debug-kernel": "nodemon -e js,ts --watch src --exec \"clear && npm run build && npm run tests && npm run kernel\"",
     "api": "node lib/main/index.js",
-    "debug-api": "nodemon -e js,ts --watch src --exec \"npm run tests && npm run build && npm run api\"",
+    "debug-api": "nodemon -e js,ts --watch src --exec \"clear && npm run build && npm run tests && npm run api\"",
     "babel-version": "babel --version",
     "preinstall": "sudo npm i -g nodemon npx",
     "tests": "mocha -c -S -R spec 'src/tests' --compilers js:babel-register --check-leaks || true"
