@@ -35,5 +35,15 @@ npm run debug-kernel
 </table>
 
 -------------
-# long live FP
-<img src="./images/beautiful_ramda.png"  width="100%">
+# #BTW
+
+<table>
+  <tr>
+  <td><h5>FP</h5></td>
+  <td><h5>TDD</h5></td>
+  </tr>
+  <tr>
+  <td><img src="./images/beautiful_ramda.png"></td>
+  <td><img src="./images/beautiful_mocha.png"></td>
+  </tr>
+</table>
