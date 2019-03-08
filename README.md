@@ -38,6 +38,8 @@ npm run debug-kernel
 # long live FP
 <img src="./images/beautiful_ramda.png"  width="100%">
 
+-------------
+
 # long live TDD
 <img src="./images/beautiful_mocha.png"  width="100%">
 
