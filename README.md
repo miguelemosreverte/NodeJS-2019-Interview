@@ -33,3 +33,7 @@ npm run debug-kernel
     <td><img src="./images/player.jpeg"></td>
   </tr>
 </table>
+
+-------------
+# long live FP
+<img src="./images/beautiful_ramda.png"  width="100%">

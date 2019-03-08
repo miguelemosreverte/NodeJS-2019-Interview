@@ -2,11 +2,11 @@
 import * as R from 'ramda'
 
 
-const winConditions = {
-      groupedByX  : R.groupBy(({coord: {x}}) => x)
-    , groupedByY  : R.groupBy(({coord: {y}}) => y)
-    , groupedByXY : R.groupBy(({coord: {x,y}}) => x-y)
-  }
+const winConditions = [
+  R.groupBy(({coord: {x}}) => x),
+  R.groupBy(({coord: {y}}) => y),
+  R.groupBy(({coord: {x,y}}) => x-y)
+]
 
 
 const win =  ({moves, move}) => {
@@ -15,12 +15,25 @@ const win =  ({moves, move}) => {
     const movesOfThisPlayer = filterWithKeys((player, value) => player == move.player, movesByPlayer)
 
     const givenPlayerMoves = playerMoves =>
-       R.map( group =>
-           R.keys(group(playerMoves)).length == 1
-           // if all can be grouped in one group then they are the same!
-       )(winConditions)
+        R.pipe(
+          R.map(funtion => funtion(playerMoves)),
+          /*
+          [
+           {"0": [{"coord": {"x": 0, "y": 0}}], "1": [{"coord": {"x": 1, "y": 0}}], "2": [{"coord": {"x": 2, "y": 2}}]},
+           {"0": [{"coord": {"x": 0, "y": 0}}, {"coord": {"x": 1, "y": 0}}], "2": [{"coord": {"x": 2, "y": 2}}]},
+           {"0": [{"coord": {"x": 0, "y": 0}}, {"coord": {"x": 2, "y": 2}}], "1": [{"coord": {"x": 1, "y": 0}}]}
+          ]
+          */
+          R.map(dict =>  R.keys(dict)),
+          // [["0", "1", "2"], ["0", "2"], ["0", "1"]]
+          R.map(keys => keys.length == 1),
+          // [true, false, false]
+          R.any(a => a),
+          // true
 
-    return R.values(givenPlayerMoves([move, ...movesOfThisPlayer])).some(a => a)
+      )(winConditions)
+
+    return givenPlayerMoves([move, ...movesOfThisPlayer])
 }
 
 export default win
