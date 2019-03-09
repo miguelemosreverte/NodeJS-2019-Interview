@@ -43,7 +43,13 @@ const rules = {
 
 
 
-export {rules}
+const validateMove = (rules, gameState) =>
+  R.values(rules).map(rule => rule(gameState)).every(e=>e)
+  
+export {
+  rules,
+  validateMove
+}
 
 
 

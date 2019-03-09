@@ -1,5 +1,5 @@
 'use strict'
-import {rules}  from './rules'
+import {rules, validateMove}  from './rules'
 import * as R from 'ramda'
 
 const sum = (a, b) => a + b
@@ -11,8 +11,6 @@ const makeMove = (game, move) => ({
   moves: [...game.moves, move]
 })
 
-const validateMove = (rules, gameState) =>
-  R.values(rules).map(rule => rule(gameState)).every(e=>e)
 
 
 
