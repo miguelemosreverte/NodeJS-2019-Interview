@@ -1,35 +1,29 @@
-/* global describe, before, beforeEach, after, it */
+import * as R from 'ramda'
+import _ from 'frisby'
 const app = require('../main/api/index');
-const supertest = require('supertest')
-const should = require('should')
-
-const monk = require('monk')
-const db = monk('mongodb://Miguel:Alatriste007@ds125602.mlab.com:25602/interview')
-const moves = db.get('moves')
-moves.find({}).then(async (docs) => {
-
-  console.log(await db.listCollections())
-  console.log("MOVES", docs)
-})
 
 
-describe('moves API', () => {
-  const testmoves = { name: 'Marcus', city: 'Stockholm, Sweden' }
-  let request = {}
-  let server = {}
+describe('moves API', async () =>  {
 
-  before(() => { server = app.listen(9000) })
-  after(() => { server.close() })
+    before(() => app.listen(3000))
+/*
+    it('GET / returns {"hello":"world"}', () =>
+     _
+      .get('http://localhost:3000/')
+      .expect('json', 'hello', 'world')
+    )
+*/
+    it('POST /move {"player":"1", coord:{x:0, y:0}} returns same when inserted on mongoDB', () =>
+     _
+     .post('http://localhost:3000/move',
+       {player:"Miguel", coord:{x:0, y:0}},
+       {json:true})
+      .expect('json', 'player', 'Miguel')
+    )
 
-  beforeEach(async () => {
-    await moves.remove({})
-    request = supertest(server)
-  })
-
-  const throwIfError = (err, res) => { if (err) throw err }
-
-  it('returns JSON for existing moves', async () => {
+/*  it('returns JSON for existing moves', async () => {
     const moves = await moves.insert(testmoves)
+    console.log(moves)
     request
       .get(`/moves/${moves._id}`)
       .set('Accept', 'application/json')
@@ -40,7 +34,7 @@ describe('moves API', () => {
       .end(throwIfError)
   })
 
-  it('content type is json', async () => {
+  /*it('content type is json', async () => {
     const moves = await moves.insert(testmoves)
     request
       .get(`/moves/`)
@@ -74,5 +68,6 @@ describe('moves API', () => {
       .set('Accept', 'application/json')
       .expect(/Marcus/)
       .end(throwIfError)
-  })
+  })*/
+
 })

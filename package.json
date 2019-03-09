@@ -11,7 +11,7 @@
     "debug-api": "nodemon -e js,ts --watch src --exec \"clear && npm run build && npm run tests && npm run api\"",
     "babel-version": "babel --version",
     "preinstall": "sudo npm i -g nodemon npx",
-    "tests": "mocha -c -S -R spec 'src/tests' --compilers js:babel-register --check-leaks || true"
+    "tests": "mocha -c -S -R spec 'src/test' --compilers js:babel-register --check-leaks --timeout 15000 || true"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -21,6 +21,7 @@
     "babili": "0.0.6",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "frisby": "^2.1.1",
     "mocha": "^3.0.2",
     "mochawesome": "^1.5.2",
     "monk": "^6.0.6",
