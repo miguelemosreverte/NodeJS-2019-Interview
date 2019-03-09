@@ -6,18 +6,17 @@ const app = require('../main/api/index');
 describe('moves API', async () =>  {
 
     before(() => app.listen(3000))
-/*
+
     it('GET / returns {"hello":"world"}', () =>
      _
       .get('http://localhost:3000/')
       .expect('json', 'hello', 'world')
     )
-*/
-    it('POST /move {"player":"1", coord:{x:0, y:0}} returns same when inserted on mongoDB', () =>
+
+    it('POST /move try with {"player":"Miguel", coord:{x:0, y:0}} ', () =>
      _
      .post('http://localhost:3000/move',
-       {player:"Miguel", coord:{x:0, y:0}},
-       {json:true})
+       {player:"Miguel", coord:{x:0, y:0}})
       .expect('json', 'player', 'Miguel')
     )
 

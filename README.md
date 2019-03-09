@@ -2,34 +2,45 @@
 
 # [requirements](./requirements.pdf)
 --------------
-![battle plan](./images/battle_plan.jpeg)
+## instructions
+###### INSTALL
+npm install
 
+###### RUN
+npm run debug-kernel
 
-/*
+--------------
 
-createPlayer
-createGame
-addPlayerToGame
-makeMove
+<img src="./images/splash_screen.jpeg"  width="100%">
+<img src="./images/battle_plan.jpeg"  width="100%">
 
-CRUD
-  GAME
-    - get returns alls games
-    - post create game
-  PLAYER
-    - get returns statistics of player (Win/Loss ratio)
-    - post create player
-  MOVE
-    - get
+<table>
+    <tr>
+    <td><img src="./images/move.jpeg"></td>
+    <td><img src="./images/game_state_and_moves.jpeg"></td>
+    </tr>
+</table>
 
-GAME/PLAYER/MOVE/RESULT
+<img src="./images/definition.jpeg"  width="100%"></tr>
 
-GAMES/PLAYERS/MOVES/RESULTS
+<table>
+  <tr>
+    <td><img src="./images/where.jpeg"></td>
+    <td><img src="./images/game.jpeg"></td>
+  </tr>
+  <tr>
+    <td><img src="./images/and.jpeg"></td>
+    <td><img src="./images/player.jpeg"></td>
+  </tr>
+</table>
 
+-------------
+# long live FP
+<img src="./images/beautiful_ramda.png"  width="100%">
 
+-------------
 
+# long live TDD
+<img src="./images/beautiful_mocha.png"  width="100%">
 
-makeMove
-get
-
-*/
+-------------
