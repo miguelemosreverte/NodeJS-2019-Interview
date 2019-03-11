@@ -2,15 +2,17 @@
 import * as R from 'ramda'
 
 
+
+
 const rules = {
-  identity: ({move}) => move,
+
   samePlayerCantMoveTwice: ({moves, move}) => {
       const [last, ...init] = moves.reverse()
-      return move.player != last.player
+      return move.player != (last? last.player : undefined)
   },
   inputOutOfRange: ({move}) => {
     const {x, y} = move.coord
-    const [min, max] = [0, 3]
+    const [min, max] = [-1, 1]
     const inRange = a => a >= min && a < max
     return inRange(x) && inRange(y)
   },
@@ -25,10 +27,30 @@ const rules = {
 
 
 
-const validateMove = (rules, gameState) =>
-  R.values(rules).map(rule => rule(gameState)).every(e=>e)
+const validateMoveWithCustomRules = rules => gameState =>
+  R.pipe(
+    R.toPairs,
+    R.map(([name, rule]) =>
+            ({[name]: rule(gameState)})
+
+    ),
+   R.mergeAll
+ )(rules)
+
+
+
+const validateMoveWithDefaultRules = gameState => validateMoveWithCustomRules(rules) (gameState)
+
+const validateMove = rules =>  gameState =>
+    R.pipe(
+      R.values,
+      R.all(a => a),
+      R.not
+    )(validateMoveWithCustomRules(rules)(gameState))
 
 export {
   rules,
-  validateMove
+  validateMove,
+  validateMoveWithDefaultRules,
+  validateMoveWithCustomRules
 }

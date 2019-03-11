@@ -8,11 +8,12 @@ const winConditions = [
   R.groupBy(({coord: {x,y}}) => x-y)
 ]
 
-
-const win =  ({moves, move}) => {
-
+const win =  gameState => {
+    const {moves, move: {player: player_, coord: {x, y}}, ...rest} = gameState
+    const move = gameState.move
     const movesByPlayer = R.groupBy(R.prop('player'))(moves)
-    const movesOfThisPlayer = filterWithKeys((player, value) => player == move.player, movesByPlayer)
+
+    const movesOfThisPlayer = filterWithKeys((player, value) => player == move, movesByPlayer)
 
     const givenPlayerMoves = playerMoves =>
         R.pipe(
@@ -33,12 +34,11 @@ const win =  ({moves, move}) => {
 
       )(winConditions)
 
-    return givenPlayerMoves([move, ...movesOfThisPlayer])
+    return {moves, move, ...rest, win: givenPlayerMoves([move, ...movesOfThisPlayer])}
 }
 
-export default win
-export {winConditions}
 
+export default win
 
 
 

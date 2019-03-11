@@ -2,7 +2,9 @@
 import * as R from 'ramda'
 const monk = require('monk')
 const db = monk('mongodb://Miguel:Alatriste007@ds125602.mlab.com:25602/interview')
-const moves = db.collection('moves')
+const collection = db.collection('moves')
+import {validateMoveWithDefaultRules} from '../kernel/rules'
+import winCondition from '../kernel/winConditions'
 
 
 
@@ -10,15 +12,21 @@ const TicTacToe = {
   "GET": {
     hello: async data =>  ({"hello": "world", data}),
     get: async data => {
-        const moves = db.get('moves')
-        const user = await moves.findOne({_id: id})
+        const user = await collection.findOne({_id: id})
         ctx.body = user
         ctx.status = 200
       }
   },
   "POST":{
-    move: async data => {
-        return await moves.insert(data)
+    move: async ({moves, move}) => {
+        const validators = validateMoveWithDefaultRules({moves, move})
+        const fails = R.filter(validation => !validation )(validators)
+
+        if (!R.isEmpty(fails)) {
+          return fails
+        }
+        const conditionals = winCondition({moves, move})
+        return await collection.insert(conditionals)
     },
   }
 };

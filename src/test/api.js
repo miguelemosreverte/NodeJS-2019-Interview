@@ -2,71 +2,67 @@ import * as R from 'ramda'
 import _ from 'frisby'
 const app = require('../main/api/index');
 
+const monk = require('monk')
+const db = monk('mongodb://Miguel:Alatriste007@ds125602.mlab.com:25602/interview')
+const moves = db.collection('moves')
 
 describe('moves API', async () =>  {
 
     before(() => app.listen(3000))
 
-    it('GET / returns {"hello":"world"}', () =>
-     _
-      .get('http://localhost:3000/')
-      .expect('json', 'hello', 'world')
-    )
+    it('POST /move inputOutOfRange', async () => {
+      const moves = []
+      const move = {player:"Miguel", coord:{x:-1, y:4}}
+      //await moves.insert(moves)
+      return _
+       .post('http://localhost:3000/move',
+         {moves, move})
+        .expect('json', 'inputOutOfRange', false)
 
-    it('POST /move try with {"player":"Miguel", coord:{x:0, y:0}} ', () =>
-     _
-     .post('http://localhost:3000/move',
-       {player:"Miguel", coord:{x:0, y:0}})
-      .expect('json', 'player', 'Miguel')
-    )
+    })
 
-/*  it('returns JSON for existing moves', async () => {
-    const moves = await moves.insert(testmoves)
-    console.log(moves)
-    request
-      .get(`/moves/${moves._id}`)
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(/Marcus/)
-      .expect(res => res.body.city.should.equal('Stockholm, Sweden'))
-      .expect(200)
-      .end(throwIfError)
-  })
+    it('POST /move try to move same player twice', async () => {
+      const moves = [  {player:"Miguel", coord:{x:0, y:1}} ]
+      const move = {player:"Miguel", coord:{x:0, y:0}}
+      //await moves.insert(moves)
+      return _
+       .post('http://localhost:3000/move',
+         {moves, move})
+        .expect('json', 'samePlayerCantMoveTwice', false)
 
-  /*it('content type is json', async () => {
-    const moves = await moves.insert(testmoves)
-    request
-      .get(`/moves/`)
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .end(throwIfError)
-  })
+    })
 
-  it('status is 200', async () => {
-    const moves = await moves.insert(testmoves)
-    request
-      .get(`/moves/${moves._id}`)
-      .set('Accept', 'application/json')
-      .expect(200)
-      .end(throwIfError)
-  })
+    it('POST /move try to place on top of already placed', async () => {
+      const moves = [
+        {player:"Miguel", coord:{x:0, y:1}},
+        {player:"Franco", coord:{x:0, y:0}},
+      ]
+      const move = {player:"Miguel", coord:{x:0, y:0}}
+      //await moves.insert(moves)
+      return _
+       .post('http://localhost:3000/move',
+         {moves, move})
+        .expect('json', 'cannotPlaceOnTopOfPlaced', false)
 
-  it('city is correct', async () => {
-    const moves = await moves.insert(testmoves)
-    request
-      .get(`/moves/${moves._id}`)
-      .set('Accept', 'application/json')
-      .expect(res => res.body.city.should.equal('Stockholm, Sweden'))
-      .end(throwIfError)
-  })
+    })
 
-  it('name is correct', async () => {
-    const moves = await moves.insert(testmoves)
-    request
-      .get(`/moves/${moves._id}`)
-      .set('Accept', 'application/json')
-      .expect(/Marcus/)
-      .end(throwIfError)
-  })*/
+
+
+    it('POST /move win', async () => {
+      const moves = [
+        {player:"Miguel", coord:{x:0, y:1}},
+        {player:"Franco", coord:{x:-1, y:0}},
+        {player:"Miguel", coord:{x:0, y:0}},
+        {player:"Franco", coord:{x:-1, y:-1}},
+      ]
+      const move = {player:"Miguel", coord:{x:0, y:-1}}
+      return _
+       .post('http://localhost:3000/move',
+         {moves, move})
+        .expect('json', 'win', true)
+
+    })
+
+
 
 })
